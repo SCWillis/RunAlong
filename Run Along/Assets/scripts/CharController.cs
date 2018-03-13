@@ -36,7 +36,10 @@ public class CharController : MonoBehaviour {
 
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
-        transform.forward = heading;
+        if (heading != Vector3.zero)
+        {
+            transform.forward = heading;
+        }
         transform.position += rightMovement;
         transform.position += upMovement;
         
@@ -47,11 +50,11 @@ public class CharController : MonoBehaviour {
     //
     void Jump()
     {
-        if(Input.GetKeyDown("space") && transform.forward != Vector3.zero )
+        if(Input.GetKeyDown("space"))
         {
             //Vector3 jumpVector = new Vector3(0, 1, 0);
             //transform.position += jumpVector;
-            this.GetComponent<Rigidbody>().AddForce(Vector3.up * 150f);
+            this.GetComponent<Rigidbody>().AddForce(Vector3.up * 500f);
         }
     }
 }
