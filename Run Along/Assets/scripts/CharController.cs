@@ -55,6 +55,7 @@ public class CharController : MonoBehaviour {
             //Vector3 jumpVector = new Vector3(0, 1, 0);
             //transform.position += jumpVector;
             this.GetComponent<Rigidbody>().AddForce(Vector3.up * 500f);
+
         }
     }
 }
