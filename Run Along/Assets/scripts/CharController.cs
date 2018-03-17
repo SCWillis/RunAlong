@@ -8,12 +8,23 @@ public class CharController : MonoBehaviour {
     float moveSpeed = 4f;
     Vector3 forward, right;
 
+    [SerializeField]
+    int maxJumps = 1;
+    int jumps;
+
+    [SerializeField]
+    Terrain terrain;
+    TerrainCollider tCollider;
+
 	void Start () {
 
         forward = Camera.main.transform.forward;
         forward.y = 0;
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+
+        tCollider = terrain.GetComponent<TerrainCollider>();
+        jumps = maxJumps;
 
 	}
 	
@@ -50,14 +61,28 @@ public class CharController : MonoBehaviour {
     //
     void Jump()
     {
-        if(Input.GetKeyDown("space"))
+        if(Input.GetKeyDown("space") && jumps > 0)
         {
             //Vector3 jumpVector = new Vector3(0, 1, 0);
             //transform.position += jumpVector;
             this.GetComponent<Rigidbody>().AddForce(Vector3.up * 500f);
+            jumps -= 1;
+            Debug.Log(jumps);
+            
 
         }
     }
+    
+    private void OnTriggerEnter(Collider collider)
+    {
+        if(collider == tCollider)
+        {
+            jumps = maxJumps;
+            //Debug.Log("collide");
+        }
+    }
+    
+
 }
 
 
